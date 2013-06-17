@@ -26,12 +26,17 @@ class ProjectParser
 
   def result(git_url)
     doc = get_doc(git_url)
-    return {
-      :commits_count    => commits_count(doc),
-      :repo_description => repo_description(doc),
-      :stargazers_count => stargazers_count(doc),
-      :forks_count      => forks_count(doc)
-    }
+    return {} unless doc
+    begin
+      return {
+        :commits_count    => commits_count(doc),
+        :repo_description => repo_description(doc),
+        :stargazers_count => stargazers_count(doc),
+        :forks_count      => forks_count(doc)
+      }
+    rescue Exception => e
+      binding.pry
+    end
   end
 
   def printable_result(git_url)
@@ -46,6 +51,7 @@ class ProjectParser
     url = get_http_url(git_url)
     #puts "parsing #{url}"
     html = http_get(url)
+    return nil unless html
     doc  = Nokogiri::XML(html)
   end
 
@@ -75,7 +81,12 @@ class ProjectParser
     if File.exists?(cached_file)
       File.open(cached_file, "r:UTF-8").read
     else
-      html = open(url).read
+      begin
+        html = open(url).read
+      rescue OpenURI::HTTPError => e
+        puts "**** ERROR *****: #{url} returned #{e.message}"
+        return nil
+      end
       File.open(cached_file, "w:UTF-8") do |f|
         f.puts html
       end
@@ -191,6 +202,7 @@ class ProjectsExecuter
       analyzer = FolderAnalyzer.new(f)
       results = []
       analyzer.projects.each do |p|
+        puts "pulling info for repo #{p}"
         r = ProjectParser.instance.printable_result(p)
         results << r
       end
@@ -205,10 +217,12 @@ class ProjectsExecuter
   def update_repos
     folders.each do |f|
       repo = Gitrepo.new(f)
+      puts "updating repo #{f}"
       repo.update
     end
   end
 end
 
 pe = ProjectsExecuter.new
-pe.update_repos
+#pe.update_repos
+pe.update_projects_lists
