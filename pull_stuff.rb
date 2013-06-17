@@ -188,7 +188,7 @@ class Gitrepo
 end
 
 class ProjectsExecuter
-  FOLDERS = %w(angularjs docker elixir erlang golang hetzner lua-useful nginx-lua).map{|x| "#{x}-stuff"}
+  FOLDERS = %w(angularjs docker elixir erlang golang hetzner lua-useful nginx-lua puppet).map{|x| "#{x}-stuff"}
   def initialize
 
   end
