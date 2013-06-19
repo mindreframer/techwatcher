@@ -3,6 +3,8 @@
 require 'nokogiri'
 require 'open-uri'
 
+FOLDERS = %w(angularjs docker elixir erlang golang hetzner lua-useful nginx-lua puppet).map{|x| "#{x}-stuff"}
+
 class FolderAnalyzer
   attr_accessor :folder_name
   def initialize(name)
@@ -201,7 +203,6 @@ class Gitrepo
 end
 
 class ProjectsExecuter
-  FOLDERS = %w(angularjs docker elixir erlang golang hetzner lua-useful nginx-lua puppet).map{|x| "#{x}-stuff"}
   def initialize
 
   end
