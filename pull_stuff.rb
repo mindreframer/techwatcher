@@ -152,6 +152,19 @@ class ReadmeWriter
     `cd #{folder} && git add Readme.md && git commit -m "readme updated"`
   end
 
+
+  def git_push_if_changed
+    diff = `cd #{folder } && git diff master..origin/master`
+    unless diff == ""
+      puts "pushing #{folder}"
+      git_push
+    end
+  end
+
+  def git_push
+    `cd #{folder} && git push origin master`
+  end
+
   def ensure_html_comments
     unless content.match(/PROJECTS_LIST_START/) && content.match(/PROJECTS_LIST_END/)
       @content = content + "\n\n" + EMPTY_LIST
@@ -211,6 +224,7 @@ class ProjectsExecuter
       #readmewriter.clear_projects_list
       readmewriter.add_projects_list(results)
       readmewriter.git_commit
+      readmewriter.git_push_if_changed
     end
   end
 
