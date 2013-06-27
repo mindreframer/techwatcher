@@ -5,14 +5,44 @@ require 'open-uri'
 
 FOLDERS = %w(angularjs docker elixir erlang golang hetzner lua-useful nginx-lua puppet).map{|x| "#{x}-stuff"}
 
-class FolderAnalyzer
-  attr_accessor :folder_name
+
+class ProjectList
+  attr_accessor :folder
   def initialize(name)
-    @folder_name = name
+    @folder = name
+  end
+
+  def full_path
+    File.join(folder, "projects.txt")
   end
 
   def projects
-    @projects ||= File.read(File.join(folder_name, "projects.txt")).split("\n")
+    @projects ||= File.read(full_path).split("\n").sort_by{|x| x.downcase}
+  end
+
+  def store
+    File.open(full_path, 'w') do |f|
+      f.puts @projects.join("\n")
+    end
+    git_commit
+    git_push_if_changed
+  end
+
+  def git_commit
+    `cd #{folder} && git add projects.txt && git commit -m "projects.txt updated"`
+  end
+
+
+  def git_push_if_changed
+    diff = `cd #{folder } && git diff master..origin/master`
+    unless diff == ""
+      puts "pushing #{folder}"
+      git_push
+    end
+  end
+
+  def git_push
+    `cd #{folder} && git push origin master`
   end
 end
 
@@ -213,14 +243,14 @@ class ProjectsExecuter
 
   def update_projects_lists
     folders.each do |f|
-      analyzer = FolderAnalyzer.new(f)
+      project_list = ProjectList.new(f)
       results = []
-      analyzer.projects.each do |p|
+      project_list.projects.each do |p|
         puts "pulling info for repo #{p}"
         r = ProjectParser.instance.printable_result(p)
         results << r
       end
-
+      project_list.store
       readmewriter = ReadmeWriter.new(f)
       #readmewriter.clear_projects_list
       readmewriter.add_projects_list(results)
