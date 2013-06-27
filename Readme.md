@@ -14,4 +14,12 @@
 
 <!-- PROJECTS_LIST_START -->
     http://github.com/mindreframer/angularjs-stuff
+    http://github.com/mindreframer/docker-stuff
+    http://github.com/mindreframer/elixir-stuff
+    http://github.com/mindreframer/erlang-stuff
+    http://github.com/mindreframer/golang-stuff
+    http://github.com/mindreframer/hetzner-stuff
+    http://github.com/mindreframer/lua-useful-stuff
+    http://github.com/mindreframer/nginx-lua-stuff
+    http://github.com/mindreframer/puppet-stuff
 <!-- PROJECTS_LIST_END -->
