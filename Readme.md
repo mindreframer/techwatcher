@@ -22,4 +22,5 @@
     http://github.com/mindreframer/lua-useful-stuff
     http://github.com/mindreframer/nginx-lua-stuff
     http://github.com/mindreframer/puppet-stuff
+    http://github.com/mindreframer/ruby-stuff
 <!-- PROJECTS_LIST_END -->
