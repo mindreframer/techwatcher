@@ -75,7 +75,7 @@ class ProjectParser
     p_info = result(git_url)
     project_name = git_url.split("/")[3..-1].join("/").gsub(/\.git/, "")
 
-    info = "\n  #{p_info[:repo_description]}\n   #{p_info[:commits_count]}, #{p_info[:stargazers_count]} stars, #{p_info[:forks_count]} forks"
+    info = "\n  #{p_info[:repo_description]}\n   #{p_info[:commits_count]} commits, #{p_info[:stargazers_count]} stars, #{p_info[:forks_count]} forks"
     "#{project_name}: #{info}\n"
   end
 
@@ -88,11 +88,12 @@ class ProjectParser
   end
 
   def commits_count(doc)
-    doc.css('p.history-link').text.strip
+    doc.css(".commits .num").text.strip
   end
 
   def repo_description(doc)
-    doc.css('div#repository_description p').text.gsub("Read more", "").strip
+    doc.css(".repository-description p").text.gsub("Read more", "").strip
+    #doc.css('div#repository_description p').text.gsub("Read more", "").strip
   end
 
   def stargazers_count(doc)
