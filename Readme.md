@@ -20,6 +20,7 @@
     http://github.com/mindreframer/golang-stuff
     http://github.com/mindreframer/hetzner-stuff
     http://github.com/mindreframer/lua-useful-stuff
+    http://github.com/mindreframer/meteorjs-stuff
     http://github.com/mindreframer/nginx-lua-stuff
     http://github.com/mindreframer/puppet-stuff
     http://github.com/mindreframer/ruby-stuff
