@@ -2,8 +2,9 @@
 
 require 'nokogiri'
 require 'open-uri'
+require 'pry'
 
-FOLDERS = %w(angularjs docker elixir erlang golang hetzner lua-useful meteorjs nginx-lua puppet ruby).map{|x| "#{x}-stuff"}
+FOLDERS = %w(angularjs docker elixir erlang golang graphdb hetzner lua-useful meteorjs nginx-lua puppet ruby).map{|x| "#{x}-stuff"}
 
 
 class ProjectList
@@ -64,7 +65,8 @@ class ProjectParser
         :commits_count    => commits_count(doc),
         :repo_description => repo_description(doc),
         :stargazers_count => stargazers_count(doc),
-        :forks_count      => forks_count(doc)
+        :forks_count      => forks_count(doc),
+        :latest_commit    => latest_commit(doc)
       }
     rescue Exception => e
       binding.pry
@@ -75,7 +77,7 @@ class ProjectParser
     p_info = result(git_url)
     project_name = git_url.split("/")[3..-1].join("/").gsub(/\.git/, "")
 
-    info = "\n  #{p_info[:repo_description]}\n   #{p_info[:commits_count]} commits, #{p_info[:stargazers_count]} stars, #{p_info[:forks_count]} forks"
+    info = "\n  #{p_info[:repo_description]}\n   #{p_info[:commits_count]} commits, last change: #{p_info[:latest_commit]}, #{p_info[:stargazers_count]} stars, #{p_info[:forks_count]} forks"
     "#{project_name}: #{info}\n"
   end
 
@@ -105,7 +107,7 @@ class ProjectParser
   end
 
   def latest_commit(doc)
-    # https://github.com/dump247/angular.tree/commits/master.atom
+    doc.css(".js-relative-date").first.attributes["title"].value rescue ""
   end
 
 
@@ -277,5 +279,5 @@ pe.update_projects_lists
 my_projects  = FOLDERS.map{|x| "http://github.com/mindreframer/#{x}"}
 readmewriter = ReadmeWriter.new('.')
 readmewriter.add_projects_list(my_projects)
-readmewriter.git_commit
-readmewriter.git_push_if_changed
+# readmewriter.git_commit
+# readmewriter.git_push_if_changed

@@ -18,6 +18,7 @@
     http://github.com/mindreframer/elixir-stuff
     http://github.com/mindreframer/erlang-stuff
     http://github.com/mindreframer/golang-stuff
+    http://github.com/mindreframer/graphdb-stuff
     http://github.com/mindreframer/hetzner-stuff
     http://github.com/mindreframer/lua-useful-stuff
     http://github.com/mindreframer/meteorjs-stuff
