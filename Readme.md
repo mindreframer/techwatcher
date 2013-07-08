@@ -13,7 +13,9 @@
 
 
 <!-- PROJECTS_LIST_START -->
+    http://github.com/mindreframer/accounting-stuff
     http://github.com/mindreframer/angularjs-stuff
+    http://github.com/mindreframer/clojure-stuff
     http://github.com/mindreframer/docker-stuff
     http://github.com/mindreframer/elixir-stuff
     http://github.com/mindreframer/erlang-stuff
