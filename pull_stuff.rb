@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 
-FOLDERS = %w(angularjs docker elixir erlang golang graphdb hetzner lua-useful meteorjs nginx-lua puppet ruby).map{|x| "#{x}-stuff"}
+FOLDERS = %w(accounting angularjs clojure docker elixir erlang golang graphdb hetzner lua-useful meteorjs nginx-lua puppet ruby).map{|x| "#{x}-stuff"}
 
 
 class ProjectList
