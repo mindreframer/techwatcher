@@ -4,8 +4,12 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 
-FOLDERS = %w(accounting angularjs clojure docker elixir erlang golang graphdb hetzner lua-useful meteorjs nginx-lua puppet ruby).map{|x| "#{x}-stuff"}
 
+filter = ARGV[0]
+
+my_folders = %w(accounting angularjs clojure docker elixir erlang golang graphdb hetzner lua-useful mongodb meteorjs nginx-lua puppet ruby).map{|x| "#{x}-stuff"}
+
+FOLDERS = filter ? my_folders.grep(%r(#{filter})) : my_folders
 
 class ProjectList
   attr_accessor :folder
@@ -277,7 +281,7 @@ pe.update_projects_lists
 
 #### update top readme
 my_projects  = FOLDERS.map{|x| "http://github.com/mindreframer/#{x}"}
-readmewriter = ReadmeWriter.new('.')
-readmewriter.add_projects_list(my_projects)
+# readmewriter = ReadmeWriter.new('.')
+# readmewriter.add_projects_list(my_projects)
 # readmewriter.git_commit
 # readmewriter.git_push_if_changed

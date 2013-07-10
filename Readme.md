@@ -9,7 +9,7 @@
 
 ## Usage
 
-    $ ruby pull_stuff.rb
+    $ ruby pull_stuff.rb [folder_matcher]
 
 
 <!-- PROJECTS_LIST_START -->
@@ -23,6 +23,7 @@
     http://github.com/mindreframer/graphdb-stuff
     http://github.com/mindreframer/hetzner-stuff
     http://github.com/mindreframer/lua-useful-stuff
+    http://github.com/mindreframer/mongodb-stuff
     http://github.com/mindreframer/meteorjs-stuff
     http://github.com/mindreframer/nginx-lua-stuff
     http://github.com/mindreframer/puppet-stuff
