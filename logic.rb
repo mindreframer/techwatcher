@@ -6,7 +6,7 @@ require 'pry'
 
 filter = ARGV[0]
 
-my_folders = %w(accounting angularjs clojure docker elixir erlang golang graphdb hetzner lua-useful mongodb meteorjs nginx-lua nosql puppet ruby).map{|x| "#{x}-stuff"}
+my_folders = %w(accounting angularjs datastructures-algorithms clojure docker elixir erlang golang graphdb hetzner lua-useful mongodb meteorjs nginx-lua nosql puppet ruby).map{|x| "#{x}-stuff"}
 
 FOLDERS = filter ? my_folders.grep(%r(#{filter})) : my_folders
 
