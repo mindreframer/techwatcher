@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby -wKU
+require './_sh/logic'
+
+pe = ProjectsExecuter.new
+pe.clean_cache

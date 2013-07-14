@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require './logic'
+require './_sh/logic'
 
 pe = ProjectsExecuter.new
 #pe.update_repos

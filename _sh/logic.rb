@@ -1,7 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
 require 'fileutils'
-require 'pry'
 
 
 filter = ARGV[0]

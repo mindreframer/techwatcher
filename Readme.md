@@ -9,7 +9,7 @@
 
 ## Usage
 
-    $ ruby pull_stuff.rb [folder_matcher]
+    $ ruby _sh/pull [folder_matcher]
 
 
 <!-- PROJECTS_LIST_START -->
