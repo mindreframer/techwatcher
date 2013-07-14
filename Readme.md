@@ -15,6 +15,7 @@
 <!-- PROJECTS_LIST_START -->
     http://github.com/mindreframer/accounting-stuff
     http://github.com/mindreframer/angularjs-stuff
+    http://github.com/mindreframer/datastructures-algorithms-stuff
     http://github.com/mindreframer/clojure-stuff
     http://github.com/mindreframer/docker-stuff
     http://github.com/mindreframer/elixir-stuff
@@ -26,6 +27,7 @@
     http://github.com/mindreframer/mongodb-stuff
     http://github.com/mindreframer/meteorjs-stuff
     http://github.com/mindreframer/nginx-lua-stuff
+    http://github.com/mindreframer/nosql-stuff
     http://github.com/mindreframer/puppet-stuff
     http://github.com/mindreframer/ruby-stuff
 <!-- PROJECTS_LIST_END -->
