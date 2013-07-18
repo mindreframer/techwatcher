@@ -13,5 +13,5 @@
 
 
 <!-- PROJECTS_LIST_START -->
-    http://github.com/mindreframer/nginx-lua-stuff
+    http://github.com/mindreframer/css-stuff
 <!-- PROJECTS_LIST_END -->
