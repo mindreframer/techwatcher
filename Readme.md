@@ -13,5 +13,5 @@
 
 
 <!-- PROJECTS_LIST_START -->
-    http://github.com/mindreframer/angularjs-stuff
+    http://github.com/mindreframer/startup-stuff
 <!-- PROJECTS_LIST_END -->
