@@ -30,6 +30,6 @@
     http://github.com/mindreframer/nginx-lua-stuff
     http://github.com/mindreframer/nosql-stuff
     http://github.com/mindreframer/puppet-stuff
-    http://github.com/mindreframer/rubyi-stuff
+    http://github.com/mindreframer/ruby-stuff
     http://github.com/mindreframer/startup-stuff
 <!-- PROJECTS_LIST_END -->
