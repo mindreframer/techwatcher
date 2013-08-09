@@ -253,6 +253,10 @@ class ProjectsExecuter
       project_list = ProjectList.new(f)
       results = []
       project_list.projects.each do |p|
+        unless p =~  /github/
+          puts "SKIPPING #{p}, NON-GITHUB repo"
+          next
+        end
         puts "pulling info for repo #{p}"
         r = ProjectParser.instance.printable_result(p)
         results << r
