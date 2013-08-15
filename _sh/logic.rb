@@ -5,7 +5,7 @@ require 'fileutils'
 
 filter = ARGV[0]
 
-my_folders = %w(accounting angularjs datastructures-algorithms clojure css docker elixir erlang golang golang-devops golang-testing graphdb hetzner lua-useful machine-learning mongodb meteorjs nginx-lua nosql puppet ruby startup).map{|x| "#{x}-stuff"}
+my_folders = %w(accounting angularjs api datastructures-algorithms clojure css docker elixir erlang golang golang-devops golang-testing graphdb hetzner lua-useful machine-learning mongodb meteorjs nginx-lua nosql puppet ruby startup).map{|x| "#{x}-stuff"}
 
 FOLDERS = filter ? my_folders.grep(%r(#{filter})) : my_folders
 
