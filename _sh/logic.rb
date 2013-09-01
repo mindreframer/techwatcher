@@ -20,7 +20,7 @@ class ProjectList
   end
 
   def projects
-    @projects ||= File.read(full_path).split("\n").sort_by{|x| x.downcase}
+    @projects ||= File.read(full_path).split("\n").sort_by{|x| x.downcase.strip}.uniq
   end
 
   def store
