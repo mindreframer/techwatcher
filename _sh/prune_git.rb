@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+## du   -d 1|sort -n
+## http://stevelorek.com/how-to-shrink-a-git-repository.html
+
+require 'pty'
+def execute(cmd)
+  begin
+    PTY.spawn( cmd ) do |stdin, stdout, pid|
+      begin
+        stdin.each { |line| print line }
+      rescue Errno::EIO
+      end
+    end
+  rescue PTY::ChildExited
+    puts "The child process exited!"
+  end
+end
+
+res = %x(du -m -d 1 |sort -n)
+
+biggest_folders = res.split("\n").reverse.map{|x| x.split("\t").last}.map{|x| x[2..-1]}
+biggest_folders.reject!{|x| x == nil}
+
+
+class GitPrunner
+  attr_accessor :name
+  def initialize(name)
+    @name = name
+  end
+
+  def prune
+    in_folder(name) do
+      log "cleaning up #{name}"
+      log "size before:  #{size_in_mb} MB"
+      execute "rm -rf .git/refs/original/"
+      execute "git reflog expire --expire=now --all"
+      execute "git gc --prune=now"
+      execute "git gc --aggressive --prune=now"
+      log "size after:  #{size_in_mb} MB"
+    end
+  end
+
+  def in_folder(folder, &block)
+    old = Dir.pwd
+    Dir.chdir(folder)
+    yield
+    Dir.chdir(old)
+  end
+
+  def size_in_mb
+    %x(du -m -d 0).split.first
+  end
+
+  def log(msg)
+    puts "--- #{msg}"
+  end
+end
+
+biggest_folders[0..10].each do |folder|
+  GitPrunner.new(folder).prune
+end
