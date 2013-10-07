@@ -1,31 +1,23 @@
 #!/usr/bin/env ruby
 ## du   -d 1|sort -n
 ## http://stevelorek.com/how-to-shrink-a-git-repository.html
-
 require 'pty'
-def execute(cmd)
-  begin
-    PTY.spawn( cmd ) do |stdin, stdout, pid|
-      begin
-        stdin.each { |line| print line }
-      rescue Errno::EIO
-      end
-    end
-  rescue PTY::ChildExited
-    puts "The child process exited!"
-  end
-end
-
-res = %x(du -m -d 1 |sort -n)
-
-biggest_folders = res.split("\n").reverse.map{|x| x.split("\t").last}.map{|x| x[2..-1]}
-biggest_folders.reject!{|x| x == nil}
-
 
 class GitPrunner
   attr_accessor :name
   def initialize(name)
     @name = name
+  end
+
+  def self.sorted_folders
+    res     = %x(du -m -d 1 |sort -n)
+    folders = res.split("\n").reverse.map{|x| x.split("\t").last}.map{|x| x[2..-1]}
+    folders.reject!{|x| x == nil}
+    folders
+  end
+
+  def self.show_overview
+    %x(du -m -d 1 |sort -n)
   end
 
   def prune
@@ -54,8 +46,22 @@ class GitPrunner
   def log(msg)
     puts "--- #{msg}"
   end
+
+  def execute(cmd)
+    begin
+      PTY.spawn( cmd ) do |stdin, stdout, pid|
+        begin
+          stdin.each { |line| print line }
+        rescue Errno::EIO
+        end
+      end
+    rescue PTY::ChildExited
+      puts "The child process exited!"
+    end
+  end
 end
 
-biggest_folders[0..10].each do |folder|
+puts GitPrunner.show_overview
+GitPrunner.sorted_folders[0..10].each do |folder|
   GitPrunner.new(folder).prune
 end
