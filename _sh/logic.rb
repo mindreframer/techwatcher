@@ -4,7 +4,8 @@ require 'fileutils'
 
 
 filter     = ARGV[0]
-my_folders = File.read("projects.txt").split("\n")
+curr_dir   = File.dirname(__FILE__)
+my_folders = File.read(File.join(curr_dir, "projects.txt")).split("\n")
 
 FOLDERS = filter ? my_folders.grep(%r(#{filter})) : my_folders
 
