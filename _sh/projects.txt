@@ -15,6 +15,7 @@ hetzner-stuff
 lua-useful-stuff
 machine-learning-stuff
 mongodb-stuff
+monitoring-stuff
 mega-stuff
 meteorjs-stuff
 networking-stuff
