@@ -243,6 +243,44 @@ class Gitrepo
   end
 end
 
+class PullScript
+  attr_accessor :project
+  def initialize(project)
+    @project = project
+  end
+
+  def sh_path
+    "#{project}/sh"
+  end
+
+  def template_path
+    File.join(File.dirname(__FILE__), "templates", "pull.erb")
+  end
+
+  def ensure_sh_folder
+    `mkdir -p #{sh_path}` unless File.exists?(sh_path)
+  end
+
+  def rm_old
+    `rm -rf #{sh_path}/00.pull.rb`
+  end
+
+  def commit
+    "cd #{project} && git add sh/pull && git commit -m 'sh_script'"
+  end
+
+  def create
+    ensure_sh_folder
+
+
+    File.open(File.join(sh_path, "pull"), "w") do |f|
+      f.puts File.read(template_path)
+    end
+    rm_old
+    commit
+  end
+end
+
 class ProjectsExecuter
   def folders
     FOLDERS
@@ -284,6 +322,12 @@ class ProjectsExecuter
         puts "cleaning cache for repo #{p}"
         ProjectParser.instance.clean_cache(p)
       end
+    end
+  end
+
+  def update_pull_script
+    folders.each do |f|
+      PullScript.new(f).create
     end
   end
 end

@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+filter     = ARGV[0]
+curr_dir   = File.dirname(__FILE__)
+my_folders = File.read(File.join(curr_dir, "projects.txt")).split("\n")
+
+
+def  log(msg)
+  puts "--- #{msg}"
+end
+my_folders.each do |f|
+  log "IN #{f.upcase}"
+  puts %x(cd #{f} && git status)
+end

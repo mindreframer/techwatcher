@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require './_sh/logic'
+
+pe = ProjectsExecuter.new
+pe.update_pull_script
