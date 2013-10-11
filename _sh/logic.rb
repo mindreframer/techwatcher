@@ -261,22 +261,16 @@ class PullScript
     `mkdir -p #{sh_path}` unless File.exists?(sh_path)
   end
 
-  def rm_old
-    `rm -rf #{project}/00.pull.rb`
-  end
-
   def commit
-    puts %x(cd #{project} && git add sh/pull && git rm 00.pull.rb && git commit -m 'sh_script')
+    puts %x(cd #{project} && git add sh/pull && git commit -m 'sh_script')
   end
 
   def create
     ensure_sh_folder
 
-
     File.open(File.join(sh_path, "pull"), "w") do |f|
       f.puts File.read(template_path)
     end
-    rm_old
     commit
   end
 end
