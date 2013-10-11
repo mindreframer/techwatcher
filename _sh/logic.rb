@@ -262,11 +262,11 @@ class PullScript
   end
 
   def rm_old
-    `rm -rf #{sh_path}/00.pull.rb`
+    `rm -rf #{project}/00.pull.rb`
   end
 
   def commit
-    "cd #{project} && git add sh/pull && git commit -m 'sh_script'"
+    puts %x(cd #{project} && git add sh/pull && git rm 00.pull.rb && git commit -m 'sh_script')
   end
 
   def create
