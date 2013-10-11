@@ -9,6 +9,26 @@ my_folders = File.read(File.join(curr_dir, "projects.txt")).split("\n")
 
 FOLDERS = filter ? my_folders.grep(%r(#{filter})) : my_folders
 
+class Exec
+  require 'pty'
+  def self.execute(cmd)
+    begin
+      PTY.spawn( cmd ) do |stdin, stdout, pid|
+        begin
+          stdin.each { |line| print line }
+        rescue Errno::EIO
+        end
+      end
+    rescue PTY::ChildExited
+      puts "The child process exited!"
+    end
+  end
+end
+
+def log(msg)
+  puts "--- #{msg}"
+end
+
 class ProjectList
   attr_accessor :folder
   def initialize(name)
@@ -258,11 +278,11 @@ class PullScript
   end
 
   def ensure_sh_folder
-    `mkdir -p #{sh_path}` unless File.exists?(sh_path)
+    Exec.execute "mkdir -p #{sh_path}" unless File.exists?(sh_path)
   end
 
   def commit
-    puts %x(cd #{project} && git add sh/pull && git commit -m 'sh_script')
+    Exec.execute "cd #{project} && git add sh/pull && git commit -m 'sh_script'"
   end
 
   def create
@@ -321,6 +341,7 @@ class ProjectsExecuter
 
   def update_pull_script
     folders.each do |f|
+      log "updating pull script for #{f.upcase}"
       PullScript.new(f).create
     end
   end
