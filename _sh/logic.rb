@@ -291,6 +291,7 @@ class PullScript
     File.open(File.join(sh_path, "pull"), "w") do |f|
       f.puts File.read(template_path)
     end
+    Exec.execute "chmod +x #{sh_path}/pull"
     commit
   end
 end
