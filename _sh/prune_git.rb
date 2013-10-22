@@ -61,7 +61,12 @@ class GitPrunner
   end
 end
 
-puts GitPrunner.show_overview
-GitPrunner.sorted_folders[0..10].each do |folder|
+#puts GitPrunner.show_overview
+regex = ARGV[0]
+
+to_prune = GitPrunner.sorted_folders
+to_prune = to_prune.grep(%r(#{regex})) if regex
+puts "WILL PRUNE "  + to_prune.join(",")
+to_prune.each do |folder|
   GitPrunner.new(folder).prune
 end
