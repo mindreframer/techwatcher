@@ -274,7 +274,8 @@ class PullScript
   end
 
   def template_path
-    File.join(File.dirname(__FILE__), "templates", "pull.erb")
+    template_name = @project =~ /golang/ ? "golang_pull.erb" : "pull.erb"
+    File.join(File.dirname(__FILE__), "templates", template_name)
   end
 
   def ensure_sh_folder
