@@ -22,6 +22,7 @@ meteorjs-stuff
 networking-stuff
 nginx-lua-stuff
 nosql-stuff
+reactjs-stuff
 puppet-stuff
 ruby-stuff
 security-stuff
