@@ -129,7 +129,13 @@ class ProjectParser
   end
 
   def latest_commit(doc)
-    doc.css(".js-relative-date").first.attributes["title"].value rescue ""
+    begin
+      # doc.css(".js-relative-date").first.attributes["title"].value rescue ""
+      v = doc.search('.authorship time').first.attributes["datetime"].value
+      DateTime.parse(v).strftime("%Y-%m-%d - %H:%M")
+    rescue
+      return ""
+    end
   end
 
   def clean_cache(git_url)
